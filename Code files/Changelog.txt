@@ -1,0 +1,10 @@
+ChangeLog:
+
+Marcel{
+
+Made delete profile work
+Added profile pictures to friend list with placeholder if no profile picture
+When friend from friend list is clicked, background toggles change to grey
+Made friend search bar work
+Made friend list wider and text bigger
+}

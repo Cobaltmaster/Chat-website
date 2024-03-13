@@ -1,0 +1,81 @@
+<!-- Changing -->
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="cheese.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="Styles.css">
+    <link rel="stylesheet" href="about.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">Your Logo</div>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav>
+        <div class="topnav">
+            <a href="/">Home</a>
+            <a href="/old">Old</a>
+            <a href="/Hub">Hub</a>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <div class="about-container">
+        <!-- About Section -->
+        <section class="about-section">
+            <h1>About Us</h1>
+            <p>Your website content here.</p>
+            <img src="cheese.ico" alt="About Us" class="about-image">
+        </section>
+
+        <!-- Collapsible Sections -->
+        <section class="insertable-slot">
+            <button type="button" class="collapsible">Open Section 1</button>
+            <div class="content">
+                <p>Content for Section 1.</p>
+            </div>
+            <button type="button" class="collapsible">Open Section 2</button>
+            <div class="content">
+                <p>Content for Section 2.</p>
+            </div>
+            <button type="button" class="collapsible">Open Section 3</button>
+            <div class="content">
+                <p>Content for Section 3.</p>
+            </div>
+        </section>
+
+        <section class="insertable-slot">
+            <h2>Insertable Slot 3</h2>
+            <!-- Insert your content here -->
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; Marcel and Conor INC
+    </footer>
+
+    <script>
+        // JavaScript for collapsible sections
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

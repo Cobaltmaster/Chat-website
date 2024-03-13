@@ -1,0 +1,277 @@
+          * {
+            box-sizing: border-box;
+          }
+
+          /* Full-width input fields */
+          input[type=text], input[type=password] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+          }
+
+          /* Add a background color when the inputs get focus */
+          input[type=text]:focus, input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+          }
+
+          /* Set a style for all buttons */
+          button {
+            background-color: #111;
+            color: #818181;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 25%;
+            opacity: 0.9;
+          }
+
+          button:hover {
+            opacity: 1;
+          }
+
+          /* Extra styles for the cancel button */
+          .cancelbtn {
+            padding: 14px 20px;
+            background-color: #f44336;
+          }
+
+          /* Float cancel and signup buttons and add an equal width */
+          .cancelbtn, .signupbtn {
+            float: left;
+            width: 100%;
+          }
+
+          /* Add padding to container elements */
+          .container {
+            padding: 16px;
+          }
+
+          /* The Modal (background) */
+          .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: #474e5d;
+            padding-top: 50px;
+          }
+
+          /* Modal Content/Box */
+          .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+          }
+
+          /* Style the horizontal ruler */
+          hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+          }
+
+          /* The Close Button (x) */
+          .close {
+            position: absolute;
+            right: 35px;
+            top: 15px;
+            font-size: 40px;
+            font-weight: bold;
+            color: #f1f1f1;
+          }
+
+          .close:hover,
+          .close:focus {
+            color: #f44336;
+            cursor: pointer;
+          }
+
+          /* Clear floats */
+          .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+          }
+
+          /* Change styles for cancel button and signup button on extra small screens */
+          @media screen and (max-width: 300px) {
+            .cancelbtn, .signupbtn {
+              width: 100%;
+            }
+          }
+
+          /* The sidepanel menu */
+          .sidepanel {
+              height: 1000px; /* Specify a height */
+              width: 0; /* 0 width - change this with JavaScript */
+              position: fixed; /* Stay in place */
+              z-index: 2; /* Stay on top */
+              top: 0;
+              left: 0;
+              background-color: #111; /* Black*/
+              overflow-x: hidden; /* Disable horizontal scroll */
+              padding-top: 60px; /* Place content 60px from the top */
+              transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
+              font-family: 'Times New Roman', serif;
+          }
+
+          /* The sidepanel links */
+          .sidepanel a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+          }
+
+          /* When you mouse over the navigation links, change their color */
+          .sidepanel a:hover {
+            color: #f1f1f1;
+          }
+
+          /* Position and style the close button (top right corner) */
+          .sidepanel .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+          }
+
+          /* Style the button that is used to open the sidepanel */
+          .openbtn {
+            width: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #111;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            opacity: 0.75;
+          }
+
+          .openbtn:hover {
+            background-color: #444;
+          }
+
+          body, html {
+            height: 100%;
+          }
+
+          * {
+            box-sizing: border-box;
+          }
+
+          .top-img {
+            /* The image used */
+            background-image: url("cheese.jpeg");
+
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+
+          .bot-img {
+            /* The image used */
+            background-image: url("cheese.jpeg");
+
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+
+          /* Add styles to the form container */
+          .container {
+            position: absolute;
+            right: 0;
+            margin: 20px;
+            max-width: 300px;
+            padding: 16px;
+            background-color: white;
+          }
+
+          /* Full-width input fields */
+          input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+          }
+
+          /* Set a style for the submit button */
+          .btn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+          }
+
+          .btn:hover {
+            opacity: 0.8;
+          }
+
+          /* Rounded border */
+          hr.rounded {
+            color: #000000;
+            border-top: 16px solid #000000;
+            border-radius: 5px;
+          }
+
+          /* Container holding the image and the text */
+          /* Bottom left text */
+          .bottom-left {
+            position: absolute;
+            bottom: 8px;
+            left: 16px;
+          }
+
+          /* Top left text */
+          .top-left {
+            position: absolute;
+            top: 8px;
+            left: 16px;
+          }
+
+          /* Top right text */
+          .top-right {
+            position: absolute;
+            top: 8px;
+            right: 16px;
+          }
+
+          /* Bottom right text */
+          .bottom-right {
+            position: absolute;
+            bottom: 8px;
+            right: 16px;
+          }
+
+          /* Centered text */
+          .centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }

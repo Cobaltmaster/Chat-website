@@ -1,0 +1,216 @@
+  <!DOCTYPE html> 
+  <html>
+  <head>
+    <link rel="icon" type="image/x-icon" href="cheese.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheese Website</title>
+    <link rel="stylesheet" href="Styles.css">
+    <link rel="stylesheet" href="Homepage.css">
+</head>
+<body class="bodyc">
+<!-- Header -->
+<header>
+    <button class="openbtn" onclick="openNav()">&#9776;</button>
+    <div id="mySidepanel" class="sidepanel">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/about">About</a>
+        <a href="/charts">Charts</a>
+        <a href="/Test">Test</a>
+        <button onclick="openSignUpModal()" id = "sidebtn">Sign Up</button>
+        <button onclick="openLoginModal()" id = "sidebtn">Login</button>
+    </div>
+</header>
+
+<div class="bg-image img1"></div>
+<div class="bg-image img2"></div>
+<div class="bg-image img3"></div>
+<div class="bg-image img4"></div>
+<div class="bg-image img5"></div>
+<div class="bg-image img6"></div>
+
+<div class="bg-text" id="backgroundText">CHEESE MASTERS</div>
+
+<!-- Horizontal Line -->
+<hr class="rounded">
+
+  <div class="bot-img">
+      <!-- Main content -->
+      <div class="about-container">
+          <!-- About Section -->
+          <section class="about-section">
+              <h1>WHAT WE OFFER</h1>
+              <p></p>
+              <img src="cheese.ico" alt="About Us" class="about-image">
+          </section>
+
+          <!-- Insertable Slots -->
+          <section class="insertable-slot">
+              <h2>INSANE LOGINS N CHATS N SHI</h2>
+              <!-- Insert your content here -->
+          </section>
+
+        <section class="insertable-slot">
+            <h2>CRAZIE CHARTZ AND EQUATIONS WOW</h2>
+            <!-- Insert your content here -->
+        </section>
+      </div>
+  </div>
+  <!-- Footer -->
+  <footer>
+      &copy; Marcel and Conor INC
+  </footer>
+
+  <!-- Sign Up Modal -->
+  <div id="signUpModal" class="modal">
+      <span onclick="closeSignUpModal()" class="close" title="Close Modal">&times;</span>
+      <form class="modal-content" action="/signup" method="post" onsubmit="return validateInfo();">
+          <div class="container">
+              <!-- SIGN UP FORM -->
+              <h1 class="login-signup-text" style="text-align: left;">Sign Up</h1>
+              <p>Please fill in this form to create an account.</p>
+              <hr>
+              <label for="newUsername"><b>Username OR Email</b></label>
+              <input type="text" placeholder="Enter Username OR Email" name="newUsername" required>
+              <label for="secret"><b>Secret Message</b></label>
+              <input type="text" placeholder="Enter Secret Message" name="secret" required>
+              <label for="newPassword"><b>Password</b></label>
+              <input type="password" placeholder="Enter Password" name="newPassword" required>
+              <label for="passwordRepeat"><b>Repeat Password</b></label>
+              <input type="password" placeholder="Repeat Password" name="passwordRepeat" required>
+              <label>
+                  <input type="checkbox" checked="checked" name="signUpRemember" style="margin-bottom: 15px;"> Remember me
+              </label>
+              <p>By creating an account you agree to our <a href="/terms_and_conditions" style="color: dodgerblue;">Terms & Conditions</a>.</p>
+              <div class="clearfix">
+                  <button type="button" onclick="closeSignUpModal()" class="cancelbtn">Cancel</button>
+                  <button type="submit" class="signup">Sign Up</button>
+              </div>
+          </div>
+      </form>
+  </div>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+      <!-- Login Modal Content -->
+      <span onclick="closeLoginModal()" class="close" title="Close Modal">&times;</span>
+      <form class="modal-content" action="/login" method="post" onsubmit="return validateLogin();">
+          <div class="container">
+              <h1 class="login-signup-text">Login</h1>
+              <label for="username"><b>Username</b></label>
+              <input type="text" placeholder="Enter Username" name="username" required>
+              <label for="password"><b>Password</b></label>
+              <input type="password" placeholder="Enter Password" name="password" id="passwordId" required>
+              <button type="submit" class="login-btn">Login</button>
+              <label>
+                  <input type="checkbox" onclick="showPassword()">Show Password
+              </label>
+              <label>
+                  <input type="checkbox" checked="checked" name="remember"> Remember me
+              </label>
+          </div>
+      </form>
+  </div>
+  <script>
+    
+      const rememberMe = <%=rememberMe%>;
+
+      function openLoginModal() {
+          if (rememberMe){
+              window.location.href="/loggedin";
+          } else {
+            document.getElementById('loginModal').style.display = 'block';          
+            // Hide the title when opening the login modal
+            document.getElementById('backgroundText').style.display = 'none';
+            document.getElementById('loginModal').style.display = 'block';
+          }
+      }
+
+      function validateInfo() {
+          var psw1 = document.getElementsByName("newPassword")[0].value;
+          var psw2 = document.getElementsByName("passwordRepeat")[0].value;
+          if (psw1 !== psw2) {
+              alert("Passwords don't match!");
+              return false;
+          }
+          return true;
+      }
+
+      function validateLogin() {
+          // Add login validation logic here if needed
+          return true;
+      }
+
+      function showPassword() {
+          var x = document.getElementById("passwordId");
+          if (x.type === "password") {
+              x.type = "text";
+          } else {
+              x.type = "password";
+          }
+      }
+
+      function openNav() {
+          document.getElementById("mySidepanel").style.width = "250px";
+          // Hide the "Open Panel" button when the panel is opened
+          document.querySelector(".openbtn").style.display = "none";
+      }
+
+      function closeNav() {
+          document.getElementById("mySidepanel").style.width = "0";
+          // Show the "Open Panel" button when the panel is closed
+          document.querySelector(".openbtn").style.display = "block";
+      }
+
+      function openSignUpModal() {
+          // Hide the title when opening the signup modal
+          document.getElementById('backgroundText').style.display = 'none';
+          document.getElementById('signUpModal').style.display = 'block';
+      }
+
+      function closeSignUpModal() {
+          // Show the title when closing the signup modal
+          document.getElementById('backgroundText').style.display = 'block';
+          document.getElementById('signUpModal').style.display = 'none';
+      }
+
+      function closeLoginModal() {
+          // Show the title when closing the login modal
+          document.getElementById('backgroundText').style.display = 'block';
+          document.getElementById('loginModal').style.display = 'none';
+      }
+
+      // Get a reference to the background text div
+      var backgroundText = document.getElementById("backgroundText");
+
+      // Define the point where you want the text to become fixed and then disappear
+      var fixedPoint = 1975; // Adjust this value to your preference
+      var isVisible = true;
+
+      // Add an event listener for scrolling
+      window.addEventListener("scroll", function() {
+          // Get the current vertical scroll position
+          var scrollPosition = window.scrollY;
+
+          if (scrollPosition <= fixedPoint && !isVisible) {
+              // If the scroll position is above or at the fixedPoint and the text is not visible, make it visible again
+              isVisible = true;
+              backgroundText.style.display = "block";
+          } else if (scrollPosition <= fixedPoint) {
+              // If the scroll position is above or at the fixedPoint, make the text centered and visible
+              var opacity = 1 - scrollPosition / fixedPoint;
+              backgroundText.style.position = "fixed";
+              backgroundText.style.top = "50%";
+              backgroundText.style.left = "50%";
+              backgroundText.style.transform = "translate(-50%, -50%)";
+              backgroundText.style.opacity = opacity;
+          } else {
+              // If the scroll position is below the fixedPoint, hide the text and mark it as not visible
+              isVisible = false;
+              backgroundText.style.display = "none";
+          }
+      });
+    
+  </script>
+    </body>
+    </html>

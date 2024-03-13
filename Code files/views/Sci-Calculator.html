@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scientific Calculator</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="calculator">
+        <input type="text" id="result" disabled>
+        <table>
+            <tr>
+                <td class="btn" onclick="appendNumber(7)">7</td>
+                <td class="btn" onclick="appendNumber(8)">8</td>
+                <td class="btn" onclick="appendNumber(9)">9</td>
+                <td class="btn" onclick="clearResult()">C</td>
+                <td class="btn" onclick="appendFunction('sqrt')">√</td>
+            </tr>
+            <tr>
+                <td class="btn" onclick="appendNumber(4)">4</td>
+                <td class="btn" onclick="appendNumber(5)">5</td>
+                <td class="btn" onclick="appendNumber(6)">6</td>
+                <td class="btn" onclick="appendOperator('+')">+</td>
+                <td class="btn" onclick="appendFunction('sin')">sin</td>
+            </tr>
+            <tr>
+                <td class="btn" onclick="appendNumber(1)">1</td>
+                <td class="btn" onclick="appendNumber(2)">2</td>
+                <td class="btn" onclick="appendNumber(3)">3</td>
+                <td class="btn" onclick="appendOperator('-')">-</td>
+                <td class="btn" onclick="appendFunction('cos')">cos</td>
+            </tr>
+            <tr>
+                <td class="btn" onclick="appendNumber(0)">0</td>
+                <td class="btn" onclick="appendDecimal()">.</td>
+                <td class="btn" onclick="calculateResult()">=</td>
+                <td class="btn" onclick="appendOperator('*')">*</td>
+                <td class="btn" onclick="appendFunction('tan')">tan</td>
+            </tr>
+            <tr>
+                <td class="btn" onclick="appendOperator('/')">/</td>
+                <td class="btn" onclick="appendFunction('pi')">π</td>
+                <td class="btn" onclick="appendFunction('log')">log</td>
+                <td class="btn" onclick="appendFunction('exp')">exp</td>
+                <td class="btn" onclick="appendFunction('abs')">|x|</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        let currentInput = '';
+        let currentOperator = '';
+        let previousInput = '';
+        let resultDisplayed = false;
+
+        function appendNumber(number) {
+            if (resultDisplayed) {
+                clearResult();
+            }
+            currentInput += number;
+            displayResult(currentInput);
+        }
+
+        function appendOperator(operator) {
+            if (currentInput !== '' && !resultDisplayed) {
+                currentOperator = operator;
+                previousInput = currentInput;
+                currentInput = '';
+            }
+        }
+
+        function appendDecimal() {
+            if (!currentInput.includes('.') && !resultDisplayed) {
+                currentInput += '.';
+                displayResult(currentInput);
+            }
+        }
+
+        function appendFunction(func) {
+            if (!resultDisplayed) {
+                switch (func) {
+                    case 'sqrt':
+                        currentInput = Math.sqrt(parseFloat(currentInput));
+                        break;
+                    case 'sin':
+                        currentInput = Math.sin(parseFloat(currentInput));
+                        break;
+                    case 'cos':
+                        currentInput = Math.cos(parseFloat(currentInput));
+                        break;
+                    case 'tan':
+                        currentInput = Math.tan(parseFloat(currentInput));
+                        break;
+                    case 'log':
+                        currentInput = Math.log(parseFloat(currentInput));
+                        break;
+                    case 'exp':
+                        currentInput = Math.exp(parseFloat(currentInput));
+                        break;
+                    case 'abs':
+                        currentInput = Math.abs(parseFloat(currentInput));
+                        break;
+                    case 'pi':
+                        currentInput = Math.PI;
+                        break;
+                    default:
+                        return;
+                }
+                displayResult(currentInput);
+            }
+        }
+
+        function clearResult() {
+            currentInput = '';
+            currentOperator = '';
+            previousInput = '';
+            resultDisplayed = false;
+            displayResult('');
+        }
+
+        function displayResult(value) {
+            document.getElementById('result').value = value;
+        }
+
+        function calculateResult() {
+            if (currentOperator && previousInput && currentInput) {
+                const num1 = parseFloat(previousInput);
+                const num2 = parseFloat(currentInput);
+                switch (currentOperator) {
+                    case '+':
+                        currentInput = num1 + num2;
+                        break;
+                    case '-':
+                        currentInput = num1 - num2;
+                        break;
+                    case '*':
+                        currentInput = num1 * num2;
+                        break;
+                    case '/':
+                        if (num2 !== 0) {
+                            currentInput = num1 / num2;
+                        } else {
+                            currentInput = 'Error';
+                        }
+                        break;
+                    case 'tan':
+                }
+                displayResult(currentInput);
+                currentOperator = '';
+                previousInput = '';
+                resultDisplayed = true;
+            }
+        }
+    </script>
+</body>
+</html>

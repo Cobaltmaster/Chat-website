@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(20, 20px);
+            grid-gap: 1px; /* Add some gap between grid cells */
+        }
+
+        .snake {
+            width: 20px;
+            height: 20px;
+            background-color: green;
+        }
+
+        .food {
+            width: 20px;
+            height: 20px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container" style="width: 400px; height: 400px;"> <!-- Specify a fixed size for the game container -->
+        <div class="snake" style="left: 0; top: 0;"></div>
+        <div class="food"></div>
+    </div>
+    <script>
+        const gameContainer = document.querySelector('.game-container');
+        const snake = document.querySelector('.snake');
+        const food = document.querySelector('.food');
+
+        const gridSize = 20;
+        const snakeSpeed = 20;
+        let dx = gridSize;
+        let dy = 0;
+
+        let snakeX = 0;
+        let snakeY = 0;
+
+        let foodX, foodY;
+        placeFood();
+
+        function updateSnake() {
+            snakeX += dx;
+            snakeY += dy;
+
+            // Check for collision with the game container boundaries
+            if (snakeX < 0) snakeX = gameContainer.offsetWidth - gridSize;
+            if (snakeX >= gameContainer.offsetWidth) snakeX = 0;
+            if (snakeY < 0) snakeY = gameContainer.offsetHeight - gridSize;
+            if (snakeY >= gameContainer.offsetHeight) snakeY = 0;
+
+            snake.style.left = `${snakeX}px`;
+            snake.style.top = `${snakeY}px`;
+
+            if (snakeX === foodX && snakeY === foodY) {
+                placeFood();
+            }
+        }
+
+        function placeFood() {
+            foodX = Math.floor(Math.random() * (gameContainer.offsetWidth / gridSize)) * gridSize;
+            foodY = Math.floor(Math.random() * (gameContainer.offsetHeight / gridSize)) * gridSize;
+            food.style.left = `${foodX}px`;
+            food.style.top = `${foodY}px`;
+        }
+
+        document.addEventListener('keydown', (event) => {
+            switch (event.key) {
+                case 'ArrowUp':
+                    dx = 0;
+                    dy = -gridSize;
+                    break;
+                case 'ArrowDown':
+                    dx = 0;
+                    dy = gridSize;
+                    break;
+                case 'ArrowLeft':
+                    dx = -gridSize;
+                    dy = 0;
+                    break;
+                case 'ArrowRight':
+                    dx = gridSize;
+                    dy = 0;
+                    break;
+            }
+        });
+
+        function gameLoop() {
+            updateSnake();
+            requestAnimationFrame(gameLoop);
+        }
+
+        gameLoop();
+    </script>
+</body>
+</html>

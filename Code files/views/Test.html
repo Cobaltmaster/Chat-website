@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #calculator {
+            width: 300px;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px #888;
+            padding: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 20px;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            outline: none;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .btn {
+            width: 60px;
+            height: 60px;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #f5f5f5;
+        }
+
+        .btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        #result {
+            font-size: 28px;
+            margin-top: 10px;
+        }
+
+        #switch-button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="calculator">
+        <input type="text" id="result" disabled>
+        <table>
+            <tr>
+                <td class="btn" onclick="appendNumber(7)">7</td>
+                <td class="btn" onclick="appendNumber(8)">8</td>
+                <td class="btn" onclick="appendNumber(9)">9</td>
+                <td class="btn" onclick="clearResult()">C</td>
+            </tr>
+            <tr>
+                <td class="btn" onclick="appendNumber(4)">4</td>
+                <td class="btn" onclick="appendNumber(5)">5</td>
+                <td class="btn" onclick="appendNumber(6)">6</td>
+                <td class="btn" onclick="appendOperator('+')">+</td>
+            </tr>
+            <tr>
+                <td class="btn" onclick="appendNumber(1)">1</td>
+                <td class="btn" onclick="appendNumber(2)">2</td>
+                <td class="btn" onclick="appendNumber(3)">3</td>
+                <td class="btn" onclick="appendOperator('-')">-</td>
+            </tr>
+            <tr>
+                <td class="btn" onclick="appendNumber(0)">0</td>
+                <td class="btn" onclick="appendDecimal()">.</td>
+                <td class="btn" onclick="calculateResult()">=</td>
+                <td class="btn" onclick="appendOperator('*')">*</td>
+            </tr>
+            <tr>
+                <td class="btn" onclick="appendOperator('/')">/</td>
+            </tr>
+        </table>
+        <button id="switch-button" onclick="toggleScientific()">Switch to Scientific</button>
+    </div>
+
+    <script>
+        let currentInput = '';
+        let currentOperator = '';
+        let previousInput = '';
+        let resultDisplayed = false;
+
+        function appendNumber(number) {
+            if (resultDisplayed) {
+                currentInput = '';
+                resultDisplayed = false;
+            }
+            currentInput += number;
+            document.getElementById('result').value = currentInput;
+        }
+
+        function appendOperator(operator) {
+            if (resultDisplayed) {
+                resultDisplayed = false;
+            }
+            if (currentInput !== '') {
+                currentOperator = operator;
+                previousInput = currentInput;
+                currentInput = '';
+            }
+        }
+
+        function appendDecimal() {
+            if (resultDisplayed) {
+                currentInput = '0.';
+                resultDisplayed = false;
+            }
+            if (currentInput.indexOf('.') === -1) {
+                currentInput += '.';
+            }
+            document.getElementById('result').value = currentInput;
+        }
+
+        function clearResult() {
+            currentInput = '';
+            currentOperator = '';
+            previousInput = '';
+            resultDisplayed = false;
+            document.getElementById('result').value = '';
+        }
+
+        function calculateResult() {
+            let result = '';
+            switch (currentOperator) {
+                case '+':
+                    result = parseFloat(previousInput) + parseFloat(currentInput);
+                    break;
+                case '-':
+                    result = parseFloat(previousInput) - parseFloat(currentInput);
+                    break;
+                case '*':
+                    result = parseFloat(previousInput) * parseFloat(currentInput);
+                    break;
+                case '/':
+                    if (parseFloat(currentInput) !== 0) {
+                        result = parseFloat(previousInput) / parseFloat(currentInput);
+                    } else {
+                        result = 'Error';
+                    }
+                    break;
+                default:
+                    return;
+            }
+            document.getElementById('result').value = result;
+            currentInput = result;
+            currentOperator = '';
+            previousInput = '';
+            resultDisplayed = true;
+        }
+
+        function toggleScientific() {
+            window.location.href = "/Sci-Calculator";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+          /* Add your specific homepage styles here */
+        .h1 {
+    font: 800 40px Arial;
+    -webkit-text-fill-color: #000000;
+    -webkit-text-stroke: 1px;
+    text-align: center;
+    color: #f1f1f1;
+    font-size: 80px;
+    font-family: comic-sans;
+  }
+        /* Responsive styles */
+  @media (max-width: 768px) {
+      .about-container {
+          padding: 10px;
+      }
+      .about-section {
+          padding: 10px;
+      }
+      .insertable-slot {
+          padding: 10px;
+      }
+  }
+        /* Main content styles */
+  .about-container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+  }
+
+  /* About section styles */
+  .about-section {
+      padding: 20px;
+      text-align: center;
+  }
+
+  .about-image {
+      max-width: 100%;
+      height: auto;
+  }
+
+  /* Insertable Slot styles */
+  .insertable-slot {
+      padding: 20px;
+      text-align: center;
+      background-color: #f0f0f0;
+      margin: 20px 0;
+  }
+        /* Footer styles */
+  footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+  }
+/*.web-background */
+        /* Add your specific homepage styles here */
+  .h1 {
+      font: 800 40px Arial;
+      -webkit-text-fill-color: #000000;
+      -webkit-text-stroke: 1px;
+      text-align: center;
+      color: #f1f1f1;
+      font-size: 80px;
+      font-family: comic-sans;
+  }
+
+  /* Main content styles */
+  .about-container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* About section styles */
+  .about-section {
+      padding: 20px;
+      text-align: center;
+  }
+
+  .about-image {
+      max-width: 100%;
+      height: auto;
+  }
+
+  /* Insertable Slot styles */
+  .insertable-slot {
+      padding: 20px;
+      text-align: center;
+      background-color: #f0f0f0;
+      margin: 20px 0;
+  }
+
+  /* Footer styles */
+  footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+  }
+
+  /* Responsive styles */
+  @media (max-width: 768px) {
+      .about-container {
+          padding: 10px;
+      }
+
+      /* Adjust button size and alignment */
+      .openbtn {
+          font-size: 20px;
+          padding: 5px 10px;
+
+      }
+  }
+
+  /* Header styles */
+  .header {
+      background-color: #333;
+      color: #fff;
+      text-align: right;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+
+  /* Modal styles */
+  .modal {
+      display: none;
+      /* Add more responsive styles if needed */
+  }

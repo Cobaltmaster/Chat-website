@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="cheese.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chartz</title>
+    <link rel="stylesheet" href="Styles.css">
+    <!-- Include Chart.js from a CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+  <nav>
+      <!-- Insert navigation menu here -->
+      <div class="topnav">
+          <a href="/">Home</a>
+          <a href="/bskbrr">Link</a>
+          <a href="/Temp">Link</a>
+      </div>
+  </nav>
+    <div class="container">
+        <h1>Customizable Bar Chart</h1>
+        <form id="chart-form">
+            <label for="data">Data Values (comma-separated):</label>
+            <input type="text" id="data" placeholder="65, 59, 80, 81, 56">
+            
+            <label for="labels">Labels (comma-separated):</label>
+            <input type="text" id="labels" placeholder="January, February, March, April, May">
+            
+            <label for="backgroundColor">Background Color:</label>
+            <input type="text" id="backgroundColor" placeholder="rgba(75, 192, 192, 0.2)">
+            
+            <label for="borderColor">Border Color:</label>
+            <input type="text" id="borderColor" placeholder="rgba(75, 192, 192, 1)">
+            
+            <button type="button" onclick="generateChart()">Generate Chart</button>
+        </form>
+    </div>
+
+    <!-- Create a canvas element to render the chart -->
+    <canvas id="myChart" width="400" height="200"></canvas>
+
+    <script>
+        var myChart;  // Variable to store the chart instance
+
+        // Function to generate the chart with custom data and appearance
+        function generateChart() {
+            var dataInput = document.getElementById('data').value;
+            var dataValues = dataInput.split(',').map(Number);
+
+            var labelsInput = document.getElementById('labels').value;
+            var labels = labelsInput.split(',');
+
+            var backgroundColor = document.getElementById('backgroundColor').value;
+            var borderColor = document.getElementById('borderColor').value;
+
+            // Clear the existing chart
+            if (myChart) {
+                myChart.destroy();
+            }
+
+            // Create a new chart with custom data and appearance
+            var ctx = document.getElementById('myChart').getContext('2d');
+            myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Custom Chart',
+                        data: dataValues,
+                        backgroundColor: backgroundColor,
+                        borderColor: borderColor,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

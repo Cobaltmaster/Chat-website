@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="cheese.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile </title>
+    <link rel="stylesheet" href="Styles.css">
+    <link rel="stylesheet" href="loggedinstyle.css">
+</head>
+<body>
+<header>
+    <div class="profile-picture">
+        <img data-src="<%= user.profilePic %>" alt="profile pic" width="100" height="100" id="profilePic">
+    </div>
+    <div class="profile-info">
+        <!-- Insert profile information here -->
+        <h1><%= user.username %></h1>
+    </div>
+</header>
+<nav>
+    <!-- Navbar -->
+    <div class="topnav">
+        <a href="/">Home</a>
+        <a href ="#" onclick="openEditProfileModal()">Edit Profile</a>
+        <a href ="#" onclick="openSignOutModal()">Sign Out</a>
+        <a href ="#" onclick="openDeleteProfileModal()" style="background-color: red;">Delete Profile</a>
+        <!-- Other navigation links -->
+    </div>
+</nav>
+<main>
+    <section class="about">
+        <p><%= user.secretText %></p>
+    </section>
+  <section class="portfolio">
+      <!--v CHAT HTML v-->
+      <div id="chat-container">
+          <div id="chat-box">
+              <ul id="messages">
+              </ul>
+          </div>
+          <form id="form">
+              <input id="message-input" autocomplete="off" placeholder="Type your message">
+              <button type="submit" id="send">Send</button>
+          </form>
+      </div>
+      <div id="user-container">
+          <div id="user-list" class="left-align">
+              <input id="search-bar" type="text" placeholder="Search..."> <!--friend search-->
+              <ul id="users">
+                  <!-- Add more user tabs as needed -->
+                  <!--Friends added to user list with javascript-->
+              </ul>
+          </div>
+      </div>
+      <div id="add-friends-container">
+          <form id="friends">
+              <h2>Add Friends</h2>
+              <input type="text" id="friends-input" placeholder="Enter friend's username">
+              <button id="send" type="submit">Add Friend</button>
+          </form>
+          <div id="friend-requests-container">
+              <h2>Friend Requests</h2>
+              <ul id="friend-requests">
+                  <!-- Friend requests will be displayed here -->
+              </ul> 
+          </div>
+      </div>
+  </section>
+</main>
+  
+  <!-- Footer -->
+  <footer>
+      &copy; Marcel and Conor INC
+  </footer>
+
+<!-- Edit Profile Modal -->
+<div id="editProfileModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeEditProfileModal()">&times;</span>
+        <h2>Edit Profile</h2>
+        <form id="editProfileForm" action="/editProfile" method="post">
+            <!-- Edit profile form fields (username, secret, etc.) -->
+            <label for="newUsername">Username:</label>
+            <input type="text" id="newUsername" name="newUsername" placeholder="Enter new username" value = "<%= user.username %>">
+            <label for="newSecret">Secret:</label>
+            <input type="text" id="newSecret" name="newSecret" placeholder="Enter new Secret" value = "<%= user.secretText %>">
+            <label for="newImage">Profile picture:</label>
+            <input type="text" id="newImage" name="newImage" placeholder="Paste image URL" value = "<%= user.profilePic %>">
+            <!-- Add other profile fields as needed -->
+
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</div>
+
+<div id="signOutModal" class="modal">
+  <div class="modal-content">
+      <h2>Are you sure?</h2>
+      <div style = "display: flex; text-align: center;">
+        <form action="/signout" method="post">
+          <button type="submit" style = "margin-right: 10px;">Yes</button>
+        </form> 
+        <button class="cancel-button" onclick="document.getElementById('signOutModal').style.display = 'none';" style = "Margin-left: 10px;">No</button>
+      </div>
+  </div>
+</div>
+
+  <div id="deleteProfileModal" class="modal">
+    <div class="modal-content">
+        <h2>Are you sure you want to delete your profile?</h2>
+        <div style = "display: flex; text-align: center;">
+          <form action="/delete" method="post">
+            <button type="submit" style = "margin-right: 10px;">Yes</button>
+          </form> 
+          <button class="cancel-button" onclick="document.getElementById('signOutModal').style.display = 'none';" style = "Margin-left: 10px;">No</button>
+        </div>
+    </div>
+  </div>
+  
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    window.onload = function() { //executes when page loads
+      const alertCode = <%- alert %>; //error codes
+      if (alertCode === 1) {
+        alert("Profile updated!");
+      } else if (alertCode === 2) {
+        alert("Username already in use");
+      }
+      // After the alert, load the image
+      var imgElement = document.getElementById('profilePic');
+      imgElement.src = imgElement.getAttribute('data-src');
+
+    }
+  const socket = io();
+
+  var friends = <%- user.friends ? JSON.stringify(user.friends) : 'null' %>;
+  if (friends) {
+    var friendArray = [];
+    for (const propertyName in friends) {
+      friendArray.push(propertyName);
+    }
+    
+    socket.emit("friend image", friendArray);
+  }
+
+  
+  let images = [];
+  
+  socket.on('friend image', (newImages) => {
+    images = newImages; //save data for later use
+    profilePics(""); //add profile to list
+  });        
+  let selectedFriend = "{";
+  
+  function friendClick(name, node){
+    selectedFriend = name;
+    // Remove the selected class from all tabs
+    const allTabs = document.querySelectorAll('.user-tab');
+    allTabs.forEach(tab => tab.classList.remove('user-tab-selected'));
+
+    // Add the selected class to the clicked tab
+    node.classList.add('user-tab-selected');
+    
+    messages.innerHTML = ''; //clear messages
+
+    socket.emit('change room', name);
+  }
+    //Socket.io code
+    
+  
+    const form = document.getElementById('form');
+    const input = document.getElementById('message-input');
+    const messages = document.getElementById('messages');
+    const chatBox = document.getElementById('chat-box');
+    const friendUsername = document.getElementById('friends-input');
+    const friendSearch = document.getElementById('search-bar');
+    const friendList = document.getElementById("users");
+  
+    function profilePics(searchQuery) {
+      friendList.innerHTML = ""; // Clear previous content
+      if (!searchQuery || ("public chat").includes(searchQuery.toLowerCase())) {
+      // Create an "li" node:
+      const node = document.createElement("li");
+      // Create a text node with the property name:
+      const textnode = document.createTextNode("Public chat");
+      // Append the text node to the "li" node:
+
+      let img = document.createElement('img');
+      img.src = "https://w7.pngwing.com/pngs/273/74/png-transparent-online-chat-livechat-chat-room-baycreative-inc-google-icon-blue-text-logo.png";
+      img.width = 50; 
+      img.height = 50;
+      node.appendChild(img);
+
+      node.appendChild(textnode);
+      node.classList.add('user-tab'); // Set the user-tab class
+      if (selectedFriend === "{") {
+        node.classList.add('user-tab-selected');
+      }
+      node.onclick = function() {
+        friendClick('{', node);
+      };
+      // Append the "li" node to the list with id "users":
+      friendList.appendChild(node);
+      }
+      // Append the "li" node to the list with id "users":
+      for (let i = 0; i < friendArray.length; i++) {
+          //const friend = friends[i];
+          //const image = images[i];
+          if (!searchQuery || friendArray[i].toLowerCase().includes(searchQuery.toLowerCase())) {
+          // Create an "li" node:
+          const node = document.createElement("li");
+          // Create a text node with the property name:
+          const textnode = document.createTextNode(friendArray[i]);
+          // Append the text node to the "li" node:
+
+          let img = document.createElement('img');
+          img.src = images[i];
+          img.width = 50; 
+          img.height = 50;
+          node.appendChild(img);
+
+          node.appendChild(textnode);
+          node.classList.add('user-tab'); // Set the user-tab class
+          if (selectedFriend === friendArray[i]) { // Highlight again if user is selected
+            node.classList.add('user-tab-selected');
+          }
+          node.onclick = function() {
+            friendClick(friendArray[i], node);
+          };
+          // Append the "li" node to the list with id "users":
+          friendList.appendChild(node);
+          }
+          // Now 'friend' and 'image' correspond to elements at the same index
+          // Do something with 'friend' and 'image' here
+      }
+    }
+
+    friendSearch.addEventListener("input", handleSearch);
+
+    function handleSearch() { //handle searching for friends in friend list
+        const searchQuery = friendSearch.value.trim();
+        profilePics(searchQuery);
+    }
+  
+    form.addEventListener('submit', (e) => { //send chat message
+      e.preventDefault();
+      if (input.value) {
+        socket.emit('chat message', input.value);
+        input.value = '';
+      }
+    });
+  
+    document.getElementById('friends').addEventListener('submit', (e) => { //add friend form
+      e.preventDefault();
+      if (friendUsername.value) {
+        socket.emit('add friend', friendUsername.value);
+      }
+    });
+
+    socket.on('change room', (msgArray) => {
+      msgArray.forEach(function(msg) {
+        console.log(msg);
+        const item = document.createElement('li');
+        item.textContent = msg;
+        messages.appendChild(item);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      });
+    });
+  
+    socket.on('chat message', (msg) => {
+      const item = document.createElement('li');
+      item.textContent = msg;
+      messages.appendChild(item);
+      chatBox.scrollTop = chatBox.scrollHeight;
+      //window.scrollTo(0, document.body.scrollHeight);
+    }); 
+
+    socket.on('add friend', (success) => {
+      if (success === 1) {
+        friendUsername.placeholder = "Friend request sent!";
+      } else if (success === 2) {
+        friendUsername.placeholder = "User: " + friendUsername.value + " not found";
+      } else if (success === 3) {
+        friendUsername.placeholder = "You have already sent a friend request to " + friendUsername.value;
+      } 
+      else if (success === 4) {
+        friendUsername.placeholder = friendUsername.value + " is already your friend";
+      } else if (success === 5) {
+        friendUsername.placeholder = "You already have a request from " + friendUsername.value;
+      } else if (success === 6) {
+        friendUsername.placeholder = "That's you!";
+      }
+      friendUsername.value = '';
+    });
+
+  function addFriendRequestToList() {
+    friendRequests.forEach((name, i) => {
+      // Create an "li" node:
+      const node = document.createElement("li");
+
+      // Create a text node:
+      const textnode = document.createTextNode(name);
+      node.appendChild(textnode);
+
+      // Create the "Accept" button:
+      const acceptBtn = document.createElement("button");
+      acceptBtn.textContent = "Accept";
+      acceptBtn.onclick = function() {
+        handleFriendRequest(name, true, i);
+      };
+      node.appendChild(acceptBtn);
+
+      // Create the "Reject" button:
+      const rejectBtn = document.createElement("button");
+      rejectBtn.textContent = "Reject";
+      rejectBtn.onclick = function() {
+        handleFriendRequest(name, false, i);
+      };
+      node.appendChild(rejectBtn);
+
+      // Append the "li" node to the list:
+      document.getElementById("friend-requests").appendChild(node);
+    });
+  }
+
+  function handleFriendRequest(name, accept, i) {
+    // Remove the friend request from the list
+    const listItem = document.querySelector(`#friend-requests li:nth-child(${i + 1})`);
+    if (listItem) {
+      listItem.remove();
+    }
+    
+    socket.emit('handle friend request', name, accept);
+  }
+  //socket.on('handle friend request', () => {
+
+    const friendRequests = JSON.parse('<%- JSON.stringify(user.friendRequests) %>');
+    addFriendRequestToList();
+
+    // Open the Edit Profile Modal
+    function openEditProfileModal() {
+        document.getElementById('editProfileModal').style.display = 'block';
+    }
+
+    // Close the Edit Profile Modal
+    function closeEditProfileModal() {
+        document.getElementById('editProfileModal').style.display = 'none';
+    }
+
+    function openSignOutModal() {
+        document.getElementById('signOutModal').style.display = 'block';
+    }
+    function openDeleteProfileModal() {
+      document.getElementById('deleteProfileModal').style.display = 'block';
+    }
+
+
+    /*
+    document.querySelector('.add-friend-button').addEventListener('click', function() {
+    const friendUsername = document.querySelector('.friend-username').value;
+
+    function publicChat() {
+        // Function to join public chat room
+        socket.emit('change room', 'public');
+    }
+
+    function addFriend() {
+        // Function to add a friend
+        const friendUsername = document.querySelector('.friend-username').value;
+        // Send a friend request or perform other actions here
+    }
+    */
+  
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  
+YOO WASSUP😳😳
+YOOO hows it going 
+great thank you
+Socket io is soo easy to use
+fr? damn thats crazzt
+yeah damn youve been workin
+I saw ur homepage it looks sick
+thx but the title is kina skuffed
+yeah its just cut off a little bit
+ye im tryna figure it out but its a bit of a pain
+oof have you asked chatgpt?
+no i should actually brb 
+https://socket.io/images/bidirectional-communication-socket.png
+Ladies and gentlemen... we gottem
+it has been done
+Yess W
+Bro it even fades away and everything 
+that is dope AF
+hows socket io goin 
+if u log in and duplicate the tab I have puplic chat working
+yoooooo what thats crazy
+... u didnt did you, custom profile pics?!!!
+not yet
+but it should be as easy as the secret text to implement
+damn thats insane
+Are we switching out the homepages??
+yes we can do that
+https://drive.google.com/uc?export=view&id=1qd05Vq5qFTI_XDZqHtjGX2kojh66xfzD
+I got custom profile pictures working
+just find an image on google and copy image address
+yooo really... wow thats awsome
+when we bouta switch the homepages or we already doin it?
+I switched it
+its beautiful...truly beautful
+ill make the user list look better
+yess perfect
+it looks beautiful
+ok I think its time for me to go to sleep
+good night
+aight gn
+lovely progress today - 19-10-23
+
+hola
+hola bro
+yoo
+😥i gtg help my family do some decorating
+cya
+ok bye bye have fun
+thx ill be back soon probably
+😑
+
+hola again
+hola
+hows the progress?
+NOOOOOO🙀
+what happened?!?!?!?!
+my thing doesnt work
+what is your thing?
+the index thing with the pages and loading them, i cant seem to get it whenever i try to do smth
+that is so wierd
+ikr
+the index is the homepage tho
+nah nah the js file tho
+AYOOOOO YOOV BEEN WORKIN
+videos aren't working again😢 cant you ask chatgpt? or are you asking? it isn't really helping. How did u fix it last time? tbh idk 
+wow it magically started working again
+huh i guess it just does that
+the advert still doesn't show tho😭
+ ooh fancy 
+i cant seem to get it, 😮😮
+ahh the videos aren't loading, there are non yet but that will come in time
+what is the problem then? it seemed to have fixed itself
+perfect!
+have u added a link in the homepage?
+yes
+where is it?
+the ad
+what ad?
+isnt there an add on the bottem right hand corner??
+nah i don't see one
+huh rly? the cheese ad? damn that sucks... not even on the homepage?
+nuh uh
+i see it on my phone
+not even on your computer?... bruh
+nope
+yeah that's crazy
+ye 
+
+are you gonna update the server with the changes?
+yes I will soon
+when we get like the chat and stuff working
+maybe we can show it to some more people
+can u make a ui to add friends for like private messaging?
+maybe just like a simple type in their name and send a friend request
+done and done i think
+how do you like it?
+
+yes that is perfect!
+we also need a ui to accept friend requests tho
+also can u make it so that when u select a user to chat with the button stays highlighted?
+this ui is looking beautifull!
+init
+hola
+
+W
+-->

@@ -1,0 +1,207 @@
+  /* Setting Universal styling */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+
+    box-sizing: border-box;
+}
+
+/* Background images */
+.bg-image {
+    height: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Setting Images */
+.img1 { background-image: url("bg-image1.jpg"); }
+.img2 { background-image: url("bg-image2.jpg"); }
+.img3 { background-image: url("bg-image3.jpg"); }
+.img4 { background-image: url("bg-image4.jpg"); }
+.img5 { background-image: url("bg-image5.jpg"); }
+.img6 { background-image: url("bg-image6.jpg"); }
+
+/* Text over the background */
+  .bg-text {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    font-weight: bold;
+    font-size: 80px;
+    border: 10px solid #f1f1f1;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1; /* Lower z-index to be below side panel */
+    max-width: 1000px;
+    width: auto;
+    padding: 20px;
+    text-align: center;
+    transition: opacity 0.5s;
+  }
+
+/* Side panel button */
+.openbtn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 3;
+    width: 50px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    opacity: 0.75;
+}
+
+/* Main content container */
+.about-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* About section styles */
+.about-section {
+    padding: 20px;
+    text-align: center;
+}
+
+.about-image {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Insertable Slot styles */
+.insertable-slot {
+    padding: 20px;
+    text-align: center;
+    background-color: #f0f0f0;
+    margin: 20px 0;
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .bg-text {
+      font-size: 40px;
+      border: 5px solid #f1f1f1;
+    }
+
+    .openbtn {
+      font-size: 18px;
+      padding: 8px 12px;
+    }
+
+    .about-container {
+      padding: 10px;
+    }
+
+    .about-section {
+      padding: 10px;
+    }
+
+    .insertable-slot {
+      padding: 10px;
+    }
+
+    .ad-containder {
+      padding: 10px;
+    }
+
+    .ad-text {
+      font-size: 50%;
+      padding: 10px;
+    }
+
+
+  }
+  /* Styles for the ad container */
+  .ad-container {
+    max-width: 20%;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: #000000;
+    padding: 5px;
+    border: 2px solid #000000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: block;
+    cursor: move;
+  }
+
+  /* Styles for the close button */
+  .close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    color: #575757;
+    font-size: 20px;
+  }
+
+  .close-button:hover {
+    color: #757575;
+  }
+
+  /* Styles for the ad link */
+  .ad-link {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+  }
+
+  /* Styles for the image */
+  .ad-image {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+  }
+
+  .ad-image:hover {
+    opacity: 0.5;
+  }
+  
+  /* Styles for the text */
+  .adcontainerheader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    color: #FFFFFF;
+    font-size: 70%;
+  }
+
+  #sidebtn {
+    font-family: 'Times New Roman' serif;
+    font-size: 30px;
+    text-align: left;
+    width: 100%;
+  }
+
+#ad-containerheader {
+  padding: 10px;
+  cursor: move;
+  z-index: 10;
+  background-color: #2196F3;
+  color: #fff;
+}

@@ -1,0 +1,355 @@
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        profile-picture {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #fff; /* Add profile picture background color */
+            /* Add profile picture background image */
+        }
+
+        .profile-info {
+            /* Add styles for profile information */
+            text-align: center;
+        }
+
+        nav {
+            background-color: #444;
+            color: #fff;
+            padding: 10px;
+        }
+
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .topnav a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        /* Links - change color on hover */
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        /* Add styles for different sections (about, portfolio, contact) */
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto; /* Center the modal vertically */
+            border: 1px solid #ccc;
+            width: 60%; /* Adjust the width as needed */
+            max-width: 450px; /* Set a maximum width for the modal 450px */
+            /*padding: 20px;*/
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .modal h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal label {
+            display: block;
+            font-weight: bold;
+        }
+        
+        .modal input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        .modal button[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .modal button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        
+        .cancel-button{
+          background-color: #d7373f;
+          color: #000000;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+        
+        .cancel-button:hover {
+          background-color: #a80022;
+        }
+        /* Close button */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 34px;
+            color: #555;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+              /* style.css */
+        #chat-box {
+          height: 300px;
+          overflow-y: scroll;
+          border: 1px solid #ccc;
+          padding: 10px;
+        }
+        
+        #form { /*previously message-input-box*/
+          display: flex;
+          margin-top: 10px;
+        }
+        
+        #send {
+          margin-left: 10px;
+        }
+        
+        .user-tab {
+          cursor: pointer;
+          padding: 5px;
+          border-bottom: 1px solid #ccc;
+        }
+        
+        .user-tab:hover {
+          background-color: #f0f0f0;
+        }
+        
+        #chat-box {
+          flex: 1;
+          height: 300px;
+          overflow-y: scroll;
+          border: 1px solid #ccc;
+          padding: 10px;
+        }
+        
+        #editProfileForm{
+          /*max-width: 95%;*/
+          padding-left: 10px;
+          padding-right: 30px;
+          padding-bottom: 20px;
+        }
+        
+        /* Chat container */
+        #chat-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Align messages at the top */
+            height: 400px; /* Adjust the height as needed */
+            /*overflow-y: scroll; /* Add a scroll bar when chat overflows */
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        #user-container {
+          display: flex;
+          flex-direction: column;
+          align-items: left;
+          justify-content: flex-start; /* Align messages at the top */
+          height: 400px; /* Adjust the height as needed */
+          /*overflow-y: scroll; /* Add a scroll bar when chat overflows */
+          margin-bottom: 10px;
+          padding: 10px;
+        }
+        
+        /* Chat messages */
+        #chat-box {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+            overflow-y: auto;
+        }
+        
+        #messages {
+            margin: 0;
+            padding: 0;
+            text-align: left;
+        }
+        
+        #messages li {
+            margin: 5px;
+            background: #f1f1f1;
+            padding: 5px;
+            border-radius: 8px;
+            word-wrap: break-word;
+        }
+        
+        /* Chat input and send button */
+        #form {
+            display: flex;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        #message-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        #send {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-left: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            width: 100px;
+        }
+        
+        #send:hover {
+            background-color: #45a049;
+        }
+        
+        /* User list */
+        #user-list {
+            width: 400px;
+            background: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-right: 10px;
+            float: left; /* Align to the left */
+            overflow-y: auto;
+        }
+        
+        #user-search {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        #users {
+            list-style: none;
+            padding: 0;
+            font-size: 30px
+        }
+        
+        .user-tab {
+            padding: 8px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .user-tab:hover {
+            background-color: #696969;
+        }
+        .user-tab-selected {
+            background-color: #696969;
+        }
+        #friends {
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          padding: 10px;
+          margin-top: 20px;
+        }
+        
+        #friends h2 {
+          font-size: 20px;
+          margin-bottom: 10px;
+        }
+        
+        #friends-input {
+          width: 93%;
+          padding: 5px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        
+          flex: 1;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+        
+        #add-friends-button {
+          width: 10%;
+          background-color: #4CAF50;
+          color: #FFFFFF;
+          border: none;
+          border-radius: 4px;
+          padding: 10px 20px;
+          cursor: pointer;
+              }
+        
+        #friends button:hover {
+          background-color: #5F5F5F;
+        }
+        
+        #friend-requests button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        #friend-requests button:hover {
+            background-color: #45a049;
+        }
